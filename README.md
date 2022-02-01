@@ -6,7 +6,7 @@ Emotion recognition is the process of identifying human emotion. People vary wid
 
 Facial expressions are a form of nonverbal communication. Various studies have been done for the classification of these facial expressions. There is strong evidence for the universal facial expressions of seven emotions which include: neutral happy, sadness, anger, disgust, fear, and surprise. So it is very important to detect these emotions on the face as it has wide applications in the field of Computer Vision and Artificial Intelligence. These fields are researching on the facial emotions to get the sentiments of the humans automatically.
 
-Here is the presentation link: https://github.com/soumya1999rta/Face-Emotion-Recognition/blob/main/Capstone%20Project_DL%20n%20MLE_%20Face_Emotion_Recognition_Soumya_Ranjan_Mishra.pdf.pdf
+Here is the presentation link: https://github.com/Avisikta-Majumdar/Face-Emotion-Recognition/blob/main/PPT.pdf
 
 ## Problem Statement
 
@@ -41,25 +41,7 @@ Here is the dataset link:-  https://www.kaggle.com/msambare/fer2013
 
 ## Model Creation
 
-### 1)	Using DeepFace
-
-DeepFace is a deep learning facial recognition system created by a research group at Facebook. It identifies human faces in digital images. The program employs a nine-layer neural network with over 120 million connection weights and was trained on four million images uploaded by Facebook users.The Facebook Research team has stated that the DeepFace method reaches an accuracy of 97.35% ± 0.25% on Labeled Faces in the Wild (LFW) data set where human beings have 97.53%. This means that DeepFace is sometimes more successful than the human beings.
-
-![](deepface.jpg)
- 
-•	The actual emotion in the Picture was ANGRY Face but using DeepFace I found the prediction is HAPPY.
-
-### 2)	Using Transfer Learning
-
-Transfer learning (TL) is a research problem in machine learning (ML) that focuses on storing knowledge gained while solving one problem and applying it to a different but related problem. For example, knowledge gained while learning to recognize cars could apply when trying to recognize trucks. This area of research bears some relation to the long history of psychological literature on transfer of learning, although formal ties between the two fields are limited. From the practical standpoint, reusing or transferring information from previously learned tasks for the learning of new tasks has the potential to significantly improve the sample efficiency of a reinforcement learning agent.
-
-![](transfer_learning.jpg)
-
- 
-•	I have trained the model with MobileNetV2 and got the accuracy of 94% ,But while testing i got the model was overfitted. I tried to see the prediction of an image and found that the prediction was wrong. 
-
-
-### 3)	Using  Deep Learning CNN
+### 	Used  Deep Learning CNN architecture
 
 In deep learning, a convolutional neural network (CNN, or ConvNet) is a class of deep neural network, most commonly applied to analyze visual imagery. They are also known as shift invariant or space invariant artificial neural networks (SIANN), based on the shared-weight architecture of the convolution kernels or filters that slide along input features and provide translation equivariant responses known as feature maps.Counter-intuitively, most convolutional neural networks are only equivariant, as opposed to invariant, to translation. They have applications in image and video recognition, recommender systems, image classification, image segmentation, medical image analysis, natural language processing, brain-computer interfaces, and financial time series.CNNs are regularized versions of multilayer perceptrons. Multilayer perceptrons usually mean fully connected networks, that is, each neuron in one layer is connected to all neurons in the next layer. The "full connectivity" of these networks make them prone to overfitting data. Typical ways of regularization, or preventing overfitting, include: penalizing parameters during training (such as weight decay) or trimming connectivity (skipped connections, dropout, etc.) CNNs take a different approach towards regularization: they take advantage of the hierarchical pattern in data and assemble patterns of increasing complexity using smaller and simpler patterns embossed in their filters. Therefore, on a scale of connectivity and complexity, CNNs are on the lower extreme. Convolutional networks were inspired by biological processes in that the connectivity pattern between neurons resembles the organization of the animal visual cortex. Individual cortical neurons respond to stimuli only in a restricted region of the visual field known as the receptive field. The receptive fields of different neurons partially overlap such that they cover the entire visual field.CNNs use relatively little pre-processing compared to other image classification algorithms. This means that the network learns to optimize the filters (or kernels) through automated learning, whereas in traditional algorithms these filters are hand-engineered. This independence from prior knowledge and human intervention in feature extraction is a major advantage.
 
@@ -74,17 +56,7 @@ In deep learning, a convolutional neural network (CNN, or ConvNet) is a class of
 
 •	Thus I decided that I will deploy the model.
 
-## Loss & Accuracy Plot
 
-
-![](loss_accuracy_plot.jpg)
-
- 
-
-
-
-
-To See the  Training and Testing python file follow this link: https://github.com/soumya1999rta/Face-Emotion-Recognition/blob/main/Soumya_Ranjan_Mishra_Live_Class_Monitoring_System_(Face_Emotion_Recognition)_Capstone_Project%20(1).ipynb
 
 
 ## Realtime Local Video Face Detection
@@ -103,7 +75,7 @@ Heroku Link:- https://face-emotion-recognition-somya.herokuapp.com
 Streamlit Link:- https://share.streamlit.io/soumya1999rta/face-emotion-recognition/main/app.py
 
 
-[ N.B:- If the website didn’t open , then try refreshing the page 2 to 3 times.]
+[ N.B:- If the website didn’t open , then try refreshing (Ctrl+R) the page 2 to 3 times.]
 
 
 
@@ -117,24 +89,7 @@ If failed to access the website and just wanted to see how the webapp works, the
 ## Some Real Life Learning from thing amazing project
 
 •	Never Give Up.
-
 •	Update yourself from your Failures.
-
 •	A Scientist needs to overcome the failures.
-
 •	Try existing all methods to reach the goal.
-
 •	Have Patience and Good things take time to happen.
-
-
-
-
-
-
-
-
-
-
-
-
-
