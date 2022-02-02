@@ -144,9 +144,11 @@ def main():
     st.title("Real Time Face Emotion Detection Application")
 
     choice = st.sidebar.selectbox("Select Activity", activities)
-    st.sidebar.markdown( """ Developed by Aviskta Majumdar and Arkopravo Pradhan. 
-        [Aviskta Majumdar LinkedIn] (https://www.linkedin.com/in/avisikta-majumdar/)   
-        [Arkopravo Pradhan LinkedIn] (https://www.linkedin.com/in/arkopravo-pradhan-5ba4b71a4/)""")
+    st.sidebar.markdown( """ Developed by 
+    
+        Aviskta Majumdar [Aviskta Majumdar LinkedIn] (https://www.linkedin.com/in/avisikta-majumdar/)   
+      
+       and Arkopravo Pradhan [Arkopravo Pradhan LinkedIn] (https://www.linkedin.com/in/arkopravo-pradhan-5ba4b71a4/)""")
 
     if choice == "Real-Time Snapshot":
         html_temp = """
@@ -163,13 +165,18 @@ def main():
         st.write("**Instructions while using the APP**")
         st.write('''
                   1. Click on the Start button to start.
-                  2. WebCam window will open  automatically. 
+                 
+                  2. WebCam will ask permission for camera & microphone permission.
+		          
 		          3. It will automatically throw the image with the prediction at that instant.
+                 
                   4. Make sure that camera shouldn't be used by any other app.
-                  5. For live recognition the app is getting slow and takes more time to predict and couldn't predict easily thus fluctuating the result.
-		             Thus Taking a snapshot at any instant of time and it will automatically predict and give the picture with prediction.
+                
+                  5. For live recognition the app is getting slow and takes more time to predict.
 		          6. Easy to know what was or what is the emotion at a particular time.
+                  
                   7. Click on  Stop  to end.
+                  
                   8. Still webcam window didnot open,  refresh the page.''')
         # calling face_detect() to detect the emotion
         face_detect()
@@ -189,10 +196,15 @@ def main():
         st.write("**Instructions while using the APP**")
         st.write('''  
                   1. Click on the Start button to start.
-                  2. WebCam window will open  automatically. 
+                  
+                  2. WebCam window will ask permission for camera & microphone permission.
+                  
 		          3. It will automatically  predict at that instant.
+		          
                   4. Make sure that camera shouldn't be used by any other app.
+                  
                   5. Click on  Stop  to end.
+                  
 		          6. Still webcam window didnot open,  go to Check Camera from the sidebar.''')
 
         webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
@@ -202,7 +214,9 @@ def main():
          html_temp = """
     <body style="background-color:blue;">
     <div style="background-image: url('https://tinyurl.com/backgrou');padding:150px">
-    <h2 style="color:red;text-align:center;">YOUR EMOTION REFLECTS YOUR PERSONALITY.</h2>
+    <h2 style="color:red;text-align:center;">Emotions can get in the way or get you on the way. 
+    
+                                                                  -Mavis Mazhura.</h2>
     <h2 style="color:white;text-align:center;">To Know your emotion proceed to Home from the side bar.</h2>
     </div>
     </body>
