@@ -144,8 +144,14 @@ def main():
 
     choice = st.sidebar.selectbox("Select Activity", activities)
     st.sidebar.markdown(
-        """ Developed by Aviskta Majumdar &  Arkopravo Pradhan
-         [Aviskta Majumdar LinkedIn] (https://www.linkedin.com/in/avisikta-majumdar/)   
+        """ Developed by
+	
+	Aviskta Majumdar &  Arkopravo Pradhan
+	
+	
+         [Aviskta Majumdar LinkedIn] (https://www.linkedin.com/in/avisikta-majumdar/)  
+	 
+	 
          [Arkopravo Pradhan LinkedIn] (https://www.linkedin.com/in/arkopravo-pradhan-5ba4b71a4/)""")
 
     if choice == "Real-Time Snapshot":
