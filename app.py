@@ -143,13 +143,11 @@ def main():
     st.title("Real Time Face Emotion Detection Application")
 
     choice = st.sidebar.selectbox("Select Activity", activities)
-    st.sidebar.markdown(
+    st.sidebar.markdown( """<a href="https://www.linkedin.com/in/avisikta-majumdar//">Aviskta Majumdar LinkedIn</a>""", unsafe_allow_html=True,
         """ Developed by
 	
 	Aviskta Majumdar &  Arkopravo Pradhan
-	
-	
-         [Aviskta Majumdar LinkedIn] (https://www.linkedin.com/in/avisikta-majumdar/)  
+
 	 
 	 
          [Arkopravo Pradhan LinkedIn] (https://www.linkedin.com/in/arkopravo-pradhan-5ba4b71a4/)""")
