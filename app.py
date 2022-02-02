@@ -54,7 +54,6 @@ def main():
     choice = st.sidebar.selectbox("Select Activity", activiteis)
     st.sidebar.markdown(
         """ Developed by Avisikta Majumdar  and  Arkoprovo Pradhan. 
-        
         [Avisikta Majumdar LinkedIn] (https://www.linkedin.com/in/avisikta-majumdar)   
         [Arkoprovo Pradhan LinkedIn] (https://www.linkedin.com/in/arkopravo-pradhan-5ba4b71a4/)""")
     if choice == "Home":
