@@ -161,7 +161,7 @@ def main():
         st.write("**Instructions while using the APP**")
         st.write('''1. Click on the Start button to start.''')
         st.write('''2. WebCam window will ask permission for camera & microphone permission.''')
-	st.write('''3. It will automatically  predict at that instant.''')
+	st.write("""3. It will automatically  predict at that instant""")
 	st.write('''4. Make sure that camera shouldn't be used by any other app.''')
 	st.write('''5. Click on  Stop  to end.''')
 	st.write('''6. Still webcam window didnot open,  go to Check Camera from the sidebar.''')
