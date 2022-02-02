@@ -138,17 +138,15 @@ WEBRTC_CLIENT_SETTINGS = ClientSettings(
 
 def main():
     activities = ["Introduction","Home","Real-Time Snapshot"]
-    choice = st.sidebar.selectbox("Pick something Useful", activities)
 
     # Face Analysis Application #
     st.title("Real Time Face Emotion Detection Application")
 
     choice = st.sidebar.selectbox("Select Activity", activities)
-    st.sidebar.markdown( """ Developed by 
-    
-        Aviskta Majumdar [Aviskta Majumdar LinkedIn] (https://www.linkedin.com/in/avisikta-majumdar/)   
-      
-       and Arkopravo Pradhan [Arkopravo Pradhan LinkedIn] (https://www.linkedin.com/in/arkopravo-pradhan-5ba4b71a4/)""")
+    st.sidebar.markdown(
+        """ Developed by Aviskta Majumdar &  Arkopravo Pradhan
+         [Aviskta Majumdar LinkedIn] (https://www.linkedin.com/in/avisikta-majumdar/)   
+         [Arkopravo Pradhan LinkedIn] (https://www.linkedin.com/in/arkopravo-pradhan-5ba4b71a4/)""")
 
     if choice == "Real-Time Snapshot":
         html_temp = """
