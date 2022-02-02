@@ -1,210 +1,101 @@
-# Importing required libraries, obviously
-import logging
-import logging.handlers
-import threading
-from pathlib import Path
-import streamlit as st
-import cv2
+# Importing Libraries
 import numpy as np
+import cv2
+import streamlit as st
+from tensorflow import keras
 from keras.models import load_model
 from keras.preprocessing.image import img_to_array
-from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
-import av
-from typing import Union
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal  # type: ignore
+# load model
+emotion_dict = ["Angry","Disgust","Fear","Happy","Neutral","Sad","Surprise"]
 
-# Loading pre-trained parameters for the cascade classifier
+classifier =load_model('CNN_model.h5')
+
+# load weights into new model
+classifier.load_weights("CNN_model.h5")
+
+#load face
 try:
-    # Face Detection
-    face_classifier = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    # Load model (h5 file)
-    classifier =load_model('Face_Emotion_detection.h5')
-    # Emotion that will be predicted
-    emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
+    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 except Exception:
     st.write("Error loading cascade classifiers")
-    
-    
+
 class VideoTransformer(VideoTransformerBase):
     def transform(self, frame):
-        label=[]
         img = frame.to_ndarray(format="bgr24")
-        face_detect = cv2.CascadeClassifier(cv2.data.haarcascades +'haarcascade_frontalface_default.xml')
-        emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
 
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        faces = face_detect.detectMultiScale(gray, 1.3,1)
+        #image gray
+        img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(
+            image=img_gray, scaleFactor=1.3, minNeighbors=5)
+        for (x, y, w, h) in faces:
+            cv2.rectangle(img=img, pt1=(x, y), pt2=(
+                x + w, y + h), color=(255, 0, 0), thickness=2)
+            roi_gray = img_gray[y:y + h, x:x + w]
+            roi_gray = cv2.resize(roi_gray, (48, 48), interpolation=cv2.INTER_AREA)
+            if np.sum([roi_gray]) != 0:
+                roi = roi_gray.astype('float') / 255.0
+                roi = img_to_array(roi)
+                roi = np.expand_dims(roi, axis=0)
+                prediction = classifier.predict(roi)[0]
+                maxindex = int(np.argmax(prediction))
+                finalout = emotion_dict[maxindex]
+                output = str(finalout)
+            label_position = (x, y)
+            cv2.putText(img, output, label_position, cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
-        for (x,y,w,h) in faces:
-            a=cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
-            roi_gray = gray[y:y+h,x:x+w]
-            # Face Cropping for prediction
-            roi_gray = cv2.resize(roi_gray,(48,48),interpolation=cv2.INTER_AREA)
-            roi = roi_gray.astype('float')/255.0
-            roi = img_to_array(roi)
-            # reshaping the cropped face image for prediction
-            roi = np.expand_dims(roi,axis=0)
-            # Prediction part
-            prediction = classifier.predict(roi)[0]
-            label=emotion_labels[prediction.argmax()]
-            label_position = (x,y)
-            b=cv2.putText(a,label,label_position,cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
-               
-        return b
-
-
-
-
-def face_detect():
-    class VideoTransformer(VideoTransformerBase):
-        # `transform()` is running in another thread, then a lock object is used here for thread-safety.
-        frame_lock: threading.Lock
-        in_image: Union[np.ndarray, None]
-        out_image: Union[np.ndarray, None]
-
-        def __init__(self) -> None:
-            self.frame_lock = threading.Lock()
-            self.in_image = None
-            self.out_image = None
-
-        def transform(self, frame: av.VideoFrame) -> np.ndarray:
-            in_image = frame.to_ndarray(format="bgr24")
-
-            out_image = in_image[:, ::-1, :]  # Simple flipping for example.
-
-            with self.frame_lock:
-                self.in_image = in_image
-                self.out_image = out_image
-
-            return in_image
-
-    ctx = webrtc_streamer(key="snapshot", video_transformer_factory=VideoTransformer)
-
-    while ctx.video_transformer:
-        
-        
-            with ctx.video_transformer.frame_lock:
-                in_image = ctx.video_transformer.in_image
-                out_image = ctx.video_transformer.out_image
-
-            if in_image is not None :
-                gray = cv2.cvtColor(in_image, cv2.COLOR_BGR2GRAY)
-                faces = face_classifier.detectMultiScale(gray)
-                for (x,y,w,h) in faces:
-                    a=cv2.rectangle(in_image,(x,y),(x+w,y+h),(0,255,0),2)
-                    roi_gray = gray[y:y+h,x:x+w]
-                    roi_gray = cv2.resize(roi_gray,(48,48),interpolation=cv2.INTER_AREA)  ##Face Cropping for prediction
-                    if np.sum([roi_gray])!=0:
-                        roi = roi_gray.astype('float')/255.0
-                        roi = img_to_array(roi)
-                        # reshaping the cropped face image for prediction
-                        roi = np.expand_dims(roi,axis=0)
-                        # Prediction part
-                        prediction = classifier.predict(roi)[0]
-                        label=emotion_labels[prediction.argmax()]
-                        label_position = (x,y)
-                        # Text Adding
-                        b = cv2.putText(a,label,label_position,cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
-                        st.image(b,channels="BGR")
-
-  
-    
-
-
-
-    
-
-
-
-from streamlit_webrtc import (  ClientSettings, VideoTransformerBase, WebRtcMode,webrtc_streamer,)
-
-HERE = Path(__file__).parent
-
-logger = logging.getLogger(__name__)
-
-
-
-
-
-WEBRTC_CLIENT_SETTINGS = ClientSettings(
-    rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
-    media_stream_constraints={"video": True, "audio": True},
-)
-
+        return img
 
 def main():
-    activities = ["Introduction","Home","Real-Time Snapshot"]
-
     # Face Analysis Application #
     st.title("Real Time Face Emotion Detection Application")
-
-    choice = st.sidebar.selectbox("Select Activity", activities)
-    st.sidebar.markdown( """Developer Avisikta Majumdar<a href="https://www.linkedin.com/in/avisikta-majumdar//">LinkedIn</a>""", unsafe_allow_html=True,)
-
-
-    if choice == "Real-Time Snapshot":
-        html_temp = """
-    <body style="background-color:red;">
-    <div style="background-color:teal ;padding:10px">
-    <h2 style="color:white;text-align:center;">Face Emotion Recognition WebApp</h2>
-    </div>
-    </body>
-        """
-        st.markdown(html_temp, unsafe_allow_html=True)
-        st.title(":angry::dizzy_face::fearful::smile::pensive::open_mouth::neutral_face:")
-        st.write("**Using the Haar cascade Classifiers**")
-        st.write("Go to the About section from the sidebar to learn more about it.")
-        st.write("**Instructions while using the APP**")
-        st.write('''1. Click on the Start button to start.''')
-        st.write('''2. WebCam window will ask permission for camera & microphone permission.''')
-	st.write("""3. It will automatically  predict at that instant""")
-	st.write('''4. Make sure that camera shouldn't be used by any other app.''')
-	st.write('''5. Click on  Stop  to end.''')
-	st.write('''6. Still webcam window didnot open,  go to Check Camera from the sidebar.''')
-      
-# calling face_detect() to detect the emotion
-        face_detect()
-        
-    elif choice =="Home":
-        html_temp = """
-    <body style="background-color:red;">
-    <div style="background-color:teal ;padding:10px">
-    <h2 style="color:white;text-align:center;">Face Emotion Recognition WebApp</h2>
-    </div>
-    </body>
-        """
-        st.markdown(html_temp, unsafe_allow_html=True)
-        st.title(":angry::dizzy_face::fearful::smile::pensive::open_mouth::neutral_face:")
-        st.write("**Using the Haar cascade Classifiers**")
-        st.write("Go to the About section from the sidebar to learn more about it.")
-        st.write("**Instructions while using the APP**")
-        st.write('''1. Click on the Start button to start.''')
-        st.write('''2. WebCam window will ask permission for camera & microphone permission.''')
-	st.write('''3. It will automatically  predict at that instant.''')
-	st.write('''4. Make sure that camera shouldn't be used by any other app.''')
-	st.write('''5. Click on  Stop  to end.''')
-	st.write('''6. Still webcam window didnot open,  go to Check Camera from the sidebar.''')
-
+    activiteis = ["Home", "Webcam Face Detection", "About"]
+    choice = st.sidebar.selectbox("Select Activity", activiteis)
+    st.sidebar.markdown(
+        """ Developed by Saurabh Daund and Mouleena Jaiswal. 
+        [Saurabh Daund LinkedIn] (https://www.linkedin.com/in/saurabh-daund-a3558a213)   
+        [Mouleena Jaiswal LinkedIn] (https://www.linkedin.com/in/mouleena-jaiswal-822bb01b1)""")
+    if choice == "Home":
+        html_temp_home1 = """<div style="background-color:#6D7B8D;padding:10px">
+                                            <h4 style="color:white;text-align:center;">
+                                            Face Emotion detection application using OpenCV, Custom CNN model and Streamlit.</h4>
+                                            </div>
+                                            </br>"""
+        st.markdown(html_temp_home1, unsafe_allow_html=True)
+        st.write("""
+                 The application has two functionalities.
+                 1. Real time face detection using web cam feed.
+                 2. Real time face emotion recognization.
+                 """)
+    elif choice == "Webcam Face Detection":
+        st.header("Webcam Live Feed")
+        st.write("Click on start to use webcam and detect your face emotion")
         webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
 
+    elif choice == "About":
+        st.subheader("About this app")
+        html_temp_about1= """<div style="background-color:#6D7B8D;padding:10px">
+                                    <h4 style="color:white;text-align:center;">
+                                    Real time face emotion detection application using OpenCV, Custom Trained CNN model and Streamlit.</h4>
+                                    </div>
+                                    </br>"""
+        st.markdown(html_temp_about1, unsafe_allow_html=True)
 
-    elif choice=="Introduction":
-         html_temp = """
-    <body style="background-color:blue;">
-    <div style="background-image: url('https://tinyurl.com/backgrou');padding:150px">
-    <h2 style="color:red;text-align:center;">Emotions can get in the way or get you on the way.   --Mavis Mazhura.</h2>
-    <h2 style="color:white;text-align:center;">To Know your emotion proceed to Home from the side bar.</h2>
-    </div>
-    </body>
-        """
-         st.markdown(html_temp, unsafe_allow_html=True)
-        
-        
-  
+        html_temp4 = """
+                             		<div style="background-color:#98AFC7;padding:10px">
+                             		<h4 style="color:white;text-align:center;">This Application is developed by Avisikta Majumdar and Arkoprovo Pradhan.
+                             		using Streamlit Framework, Opencv, Tensorflow and Keras library for demonstration purpose. </h4>
+                             		<h4 style="color:white;text-align:center;">Thanks for Visiting</h4>
+                             		</div>
+                             		<br></br>
+                             		<br></br>"""
+
+        st.markdown(html_temp4, unsafe_allow_html=True)
+    
+    else:
+        pass
+
 
 if __name__ == "__main__":
     main()
