@@ -143,7 +143,7 @@ def main():
     st.title("Real Time Face Emotion Detection Application")
 
     choice = st.sidebar.selectbox("Select Activity", activities)
-    st.sidebar.markdown( """Developer Avisikta Majumdar<a href="https://www.linkedin.com/in/avisikta-majumdar//">( LinkedIn )</a>""", unsafe_allow_html=True,)
+    st.sidebar.markdown( """Developer Avisikta Majumdar<a href="https://www.linkedin.com/in/avisikta-majumdar//">LinkedIn</a>""", unsafe_allow_html=True,)
 
 
     if choice == "Real-Time Snapshot":
@@ -159,29 +159,12 @@ def main():
         st.write("**Using the Haar cascade Classifiers**")
         st.write("Go to the About section from the sidebar to learn more about it.")
         st.write("**Instructions while using the APP**")
-        st.write(
-		'''1. Click on the Start button to start.
-                 
-		 
-                  2. WebCam will ask permission for camera & microphone permission.
-		    
-		    
-		  3. It will automatically throw the image with the prediction at that instant.
-                 
-		 
-                  4. Make sure that camera shouldn't be used by any other app.
-                
-		
-                  5. For live recognition the app is getting slow and takes more time to predict.
-		  
-		  
-		  6. Easy to know what was or what is the emotion at a particular time.
-                  
-		  
-                  7. Click on  Stop  to end.
-                  
-		  
-                  8. Still webcam window didnot open,  refresh the page.''')
+        st.write('''1. Click on the Start button to start.''')
+        st.write('''2. WebCam window will ask permission for camera & microphone permission.''')
+	st.write(''' 3. It will automatically  predict at that instant.''')
+	st.write('''4. Make sure that camera shouldn't be used by any other app.''')
+	st.write('''5. Click on  Stop  to end.''')
+	st.write('''6. Still webcam window didnot open,  go to Check Camera from the sidebar.''')
       
 # calling face_detect() to detect the emotion
         face_detect()
@@ -199,18 +182,12 @@ def main():
         st.write("**Using the Haar cascade Classifiers**")
         st.write("Go to the About section from the sidebar to learn more about it.")
         st.write("**Instructions while using the APP**")
-        st.write('''  
-                  1. Click on the Start button to start.
-                  
-                  2. WebCam window will ask permission for camera & microphone permission.
-                  
-		  3. It will automatically  predict at that instant.
-		          
-                  4. Make sure that camera shouldn't be used by any other app.
-                  
-                  5. Click on  Stop  to end.
-                  
-		  6. Still webcam window didnot open,  go to Check Camera from the sidebar.''')
+        st.write('''1. Click on the Start button to start.''')
+        st.write('''2. WebCam window will ask permission for camera & microphone permission.''')
+	st.write(''' 3. It will automatically  predict at that instant.''')
+	st.write('''4. Make sure that camera shouldn't be used by any other app.''')
+	st.write('''5. Click on  Stop  to end.''')
+	st.write('''6. Still webcam window didnot open,  go to Check Camera from the sidebar.''')
 
         webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
 
@@ -219,9 +196,7 @@ def main():
          html_temp = """
     <body style="background-color:blue;">
     <div style="background-image: url('https://tinyurl.com/backgrou');padding:150px">
-    <h2 style="color:red;text-align:center;">Emotions can get in the way or get you on the way. 
-    
-                                                                  -Mavis Mazhura.</h2>
+    <h2 style="color:red;text-align:center;">Emotions can get in the way or get you on the way.   --Mavis Mazhura.</h2>
     <h2 style="color:white;text-align:center;">To Know your emotion proceed to Home from the side bar.</h2>
     </div>
     </body>
