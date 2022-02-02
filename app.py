@@ -143,7 +143,9 @@ def main():
     st.title("Real Time Face Emotion Detection Application")
 
     choice = st.sidebar.selectbox("Select Activity", activities)
-    st.sidebar.markdown( """Developed By\n Avisikta Majumdar<a href="https://www.linkedin.com/in/avisikta-majumdar//">( LinkedIn )</a>""", unsafe_allow_html=True,)
+    st.sidebar.markdown( """Developed By
+    
+    Avisikta Majumdar<a href="https://www.linkedin.com/in/avisikta-majumdar//">( LinkedIn )</a>""", unsafe_allow_html=True,)
 
 
     if choice == "Real-Time Snapshot":
