@@ -1,4 +1,7 @@
-# Live Class Monitoring System(Face Emotion Recognition)
+# AlmaBetter Capstone Project 5 - Live Class Monitoring System(Face Emotion Recognition)
+This project is a part of the [AlmaBetter Pro Program](https://www.almabetter.com/) 
+
+#### Project Status: [Completed]
 
 ## Introduction
 
@@ -6,7 +9,7 @@ Emotion recognition is the process of identifying human emotion. People vary wid
 
 Facial expressions are a form of nonverbal communication. Various studies have been done for the classification of these facial expressions. There is strong evidence for the universal facial expressions of seven emotions which include: neutral happy, sadness, anger, disgust, fear, and surprise. So it is very important to detect these emotions on the face as it has wide applications in the field of Computer Vision and Artificial Intelligence. These fields are researching on the facial emotions to get the sentiments of the humans automatically.
 
-Here is the presentation link: https://github.com/Avisikta-Majumdar/Face-Emotion-Recognition/blob/main/PPT.pdf
+Here is the presentation link: https://github.com/Avisikta-Majumdar/Face-Emotion-Recognition/blob/main/PPT.pptx.pdf.pdf
 
 ## Problem Statement
 
@@ -33,10 +36,11 @@ Here is the dataset link:-  https://www.kaggle.com/msambare/fer2013
 ## Dependencies
 
 1)	Python 3
-2)	Tensorflow 2.0
-3)	Streamlit
-4)	Streamlit-Webrtc
-5)	OpenCV
+2)	Keras
+3)	sklearn & matplotlib
+4)	Streamlit
+5)	Streamlit-Webrtc
+6)	OpenCV
 
 
 ## Model Creation
@@ -67,9 +71,9 @@ For Webapp , OpenCV can’t be used. Thus, using Streamlit-Webrtc for front-end 
 
 ## Deployment of Streamlit WebApp in Heroku and Streamlit
 
-In this repository I have made a front end using streamlit .Streamlit doesn’t provide the live capture feature itself, instead uses a third party API. I have used streamlit-webrtc which helped to deal with real-time video streams. Image captured from the webcam is sent to VideoTransformer function to detect the emotion. Then this model was deployed on heroku and streamlit platform with the help of buildpack-apt which is necessary to deploy opencv model on heroku and streamlit.
+In this repository I have made a front end using streamlit .Streamlit doesn’t provide the live capture feature itself, instead uses a third party API.<BR> I have used streamlit-webrtc which helped to deal with real-time video streams. <BR>Image captured from the webcam is sent to VideoTransformer function to detect the emotion. <BR>Then this model was deployed on heroku and streamlit platform with the help of buildpack-apt which is necessary to deploy opencv model on heroku and streamlit.
 
-Heroku Link:- https://face-emotion-recogn-almabetter.herokuapp.com
+Heroku Link:- https://face-emotion-almabetter.herokuapp.com/
 
 
 Streamlit Link:- https://share.streamlit.io/avisikta-majumdar/capstone-project-face-emotion-recognition/main/app.py
@@ -81,7 +85,17 @@ Streamlit Link:- https://share.streamlit.io/avisikta-majumdar/capstone-project-f
 
 ## Conclusion
 
-Finally I build the webapp and deployed which has training accuracy of 82% and test accuracy of 66% .
+● Our model is giving an accuracy of 84.9% and validation accuracy of 65.8% <BR>
+● It is robust in that it works well even in a dim light environment.<BR>
+● The application is able to detect face location and predict the right expression while checking
+it on a local webcam.<BR>
+● The front-end of the model was made using streamlit for webapp and running well on local
+webapp link.<BR>
+● After we successfully created our model, we deployed it the Heroku and Streamlit Cloud , that
+runs on a web server.<BR>
+● And we believe that through this model teachers can understand the students' perception
+during online classes and change the way of teaching if needed by understanding the
+students’ motive.<BR>
 
 
 ## Some Real Life Learning from thing amazing project
