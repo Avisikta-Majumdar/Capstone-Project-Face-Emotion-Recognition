@@ -1,5 +1,5 @@
 # AlmaBetter Capstone Project 5 - Live Class Monitoring System(Face Emotion Recognition)
-This project is a part of the [AlmaBetter Pro Program](https://www.almabetter.com/) 
+## This project is a part of the [Almabetter Pro Program Curriculum(Full Stack Data Science)](https://grow.almabetter.com/auth/signup?referralCode=4M11C2&utm_source=referral)
 
 #### Project Status: [Completed]
 #### Score - [ 100 / 100 ]
